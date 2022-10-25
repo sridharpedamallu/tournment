@@ -4,11 +4,11 @@ const { Schema } = mongoose;
 const teamSchema = new Schema(
     {
         player1: {
-            type: String,
+            type: Object,
             required: true
         },
         player2: {
-            type: String,
+            type: Object,
             required: true
         },
         group: {

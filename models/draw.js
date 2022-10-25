@@ -4,12 +4,10 @@ const { Schema } = mongoose;
 const drawSchema = new Schema(
     {
         team1: {
-            type: String,
-            required: true
+            type: Object
         },
         team2: {
-            type: String,
-            required: true
+            type: Object
         },
         team1Score: {
             type: Number,
@@ -37,8 +35,7 @@ const drawSchema = new Schema(
             default: 0,
         },
         group: {
-            type: String,
-            required: true
+            type: String
         },
     },
     { timestamps: true }
