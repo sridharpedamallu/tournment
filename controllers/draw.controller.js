@@ -33,6 +33,14 @@ exports.newDraw = async (req, res) => {
 exports.editDraw = async (req, res) => {
 
 }
+exports.startMatch = async (req, res) => {
+    console.log(req.params.id)
+    await Draw.findByIdAndUpdate(req.params.id, {
+        status: 'in progress'
+    });
+
+    res.send('Match started!!!');
+}
 exports.deleteDraw = async (req, res) => {
     await Draw.findByIdAndDelete(req.params.id);
     res.json({ message: 'Player deleted' });

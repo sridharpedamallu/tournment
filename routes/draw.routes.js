@@ -8,5 +8,6 @@ router.get('/:id', draw.getDrawById)
 router.post('/', draw.newDraw)
 router.put('/:id', draw.editDraw)
 router.delete('/:id', draw.deleteDraw)
+router.put('/start-match/:id', draw.startMatch)
 
 module.exports = router
