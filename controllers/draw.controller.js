@@ -11,14 +11,6 @@ exports.getDrawById = async (req, res) => {
     return res.json(draw);
 }
 exports.newDraw = async (req, res) => {
-    // const { player1, player2, group } = { ...req.body };
-    // const draw = new Team({
-    //     player1,
-    //     player2,
-    //     group
-    // });
-    // await draw.save();
-    console.log(req.body);
     const draw = new Draw(
         {
             team1: req.body.team1,
@@ -34,13 +26,35 @@ exports.editDraw = async (req, res) => {
 
 }
 exports.startMatch = async (req, res) => {
-    console.log(req.params.id)
-    await Draw.findByIdAndUpdate(req.params.id, {
-        status: 'in progress'
-    });
+    const currentMatch = await Draw.findOne({ status: 'in progress' });
+    console.log(currentMatch)
+    if (currentMatch == null) {
+        await Draw.findByIdAndUpdate(req.params.id, {
+            status: 'in progress'
+        });
+        res.json({ message: 'Match started!!!' });
+    } else {
+        res.status(500).json({ message: "Unable to start match, another match is in progress" })
+    }
 
-    res.send('Match started!!!');
 }
+
+exports.getActiveMatch = async (req, res) => {
+    const draws = await Draw.findOne({ status: 'in progress' });
+    return res.json(draws);
+}
+
+exports.changePoints = async (req, res) => {
+    await Draw.findByIdAndUpdate(req.body._id, {
+        team1Score: req.body.team1Score,
+        team2Score: req.body.team2Score,
+        winner: req.body.winner,
+        status: req.body.status
+    });
+    return res.json({ message: 'Updated' });
+}
+
+
 exports.deleteDraw = async (req, res) => {
     await Draw.findByIdAndDelete(req.params.id);
     res.json({ message: 'Player deleted' });
