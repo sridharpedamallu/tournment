@@ -31,7 +31,7 @@ const drawSchema = new Schema(
             default: 'R1'
         },
         winners: {
-            type: Number,
+            type: String,
             default: 0,
         },
         group: {

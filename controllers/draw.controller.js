@@ -48,7 +48,7 @@ exports.changePoints = async (req, res) => {
     await Draw.findByIdAndUpdate(req.body._id, {
         team1Score: req.body.team1Score,
         team2Score: req.body.team2Score,
-        winner: req.body.winner,
+        winners: req.body.winners,
         status: req.body.status
     });
     return res.json({ message: 'Updated' });
